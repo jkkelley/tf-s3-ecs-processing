@@ -29,3 +29,13 @@
 ---
 
 ✅ Result: Every new file upload to S3 (optionally filtered by prefix/suffix) triggers a **private ECS task** that processes it, with **no internet connectivity** and all AWS service traffic routed through VPC endpoints.
+
+---
+
+## Gotcha's
+1. **Task Definition Config (Prod vs Test)**
+   - By default, the task definition includes a testing block (with a simple bash command to echo S3 values and sleep). When promoting to production, remove the test block and uncomment the production container definition above so the task uses real environment variables and log configuration.
+   
+<p align="center">
+ <img src="./images/container_definition.png" alt="Container Definition" width="800"/>
+</p>
